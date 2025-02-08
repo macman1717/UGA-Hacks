@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from disaster_relief.models import ReliefRequest
+from disaster_relief.models import ReliefRequest, Comment
+
 
 # Create your views here.
 
@@ -83,8 +84,40 @@ def get_rr_by_long_lat(request):
         format_relief_request(rr)
     return JsonResponse(requests, safe=False, status=200)
 
+def post_comment(request):
+    try:
+        body = json.loads(request.body)
+        username = User.objects.get(username=body["username"])
+        rr_id = body["relief_request_id"]
+        content = body["content"]
+        date = datetime.now()
+        comment = Comment(
+            content=content,
+            username=username,
+            relief_request = rr_id,
+            date=date,
+        )
+
+        comment.save()
+        return JsonResponse({"response": "ok"}, status=200)
+    except Exception as e:
+        return JsonResponse({"response": str(e)}, status=500)
+
+
+
 def format_relief_request(relief_request):
     relief_request["id"] = str(relief_request["id"])
     relief_request['user_id'] = str(relief_request['user_id'])
+    relief_request['comments'] = list((Comment
+                                  .objects
+                                  .filter(username=User
+                                          .objects
+                                          .get(pk=relief_request['user_id'])
+                                          )
+                                  .values()))
+    for comment in relief_request['comments']:
+        comment['id'] = str(comment['id'])
+    print(relief_request)
+
 
 

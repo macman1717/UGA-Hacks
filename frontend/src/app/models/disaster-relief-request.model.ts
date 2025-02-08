@@ -1,19 +1,8 @@
-// {
-//     "id": "67a6fc11396b674ce7b0b22d",
-//     "longitude": 10.1212,
-//     "latitude": 51.1212,
-//     "description": "I have worms",
-//     "date": "2025-02-08T06:39:13.183Z",
-//     "category": "medical",
-//     "link": "https://www.disasterrelief.org/",
-//     "title": "I have worms",
-//     "user_id": "67a6f7956af94a2cecf7106b",
-//     "watchlist": null,
-//     "comments": null,
-//     "likes": null
-//   },
+
+
 export interface Comment{
   id: string,
+  relief_request : string,
   username: string,
   content: string,
   date: string
