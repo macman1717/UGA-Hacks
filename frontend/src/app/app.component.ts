@@ -3,8 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { MapComponent } from "./components/map/map.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { DetailsComponent } from "./components/details/details.component";
-import { MarkerInfo } from './models/MarkerInfo.model';
 import { ScratchPaperComponent } from "./scratch-paper/scratch-paper.component";
+import { ReliefRequest } from './models/disaster-relief-request.model';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +23,9 @@ export class AppComponent {
   }
   
   showDetails = false;
-  selectedLocation?: MarkerInfo = undefined;
+  selectedLocation?: ReliefRequest = undefined;
 
-  openDetails(location: MarkerInfo) {
+  openDetails(location: ReliefRequest) {
     if (!location) {
       this.selectedLocation = undefined;
       this.showDetails = false;

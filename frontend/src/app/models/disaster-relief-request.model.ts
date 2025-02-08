@@ -1,8 +1,8 @@
 
-interface Comment{
-  id: string
-  relief_request_id : string,
-  user_id : string,
+
+export interface Comment{
+  id: string,
+  relief_request : string,
   username: string,
   content: string,
   date: string
@@ -13,7 +13,7 @@ export interface ReliefRequest{
   longitude: number,
   latitude: number,
   description: string,
-  date: String,
+  date: string,
   category: string,
   link: string,
   title: string,
