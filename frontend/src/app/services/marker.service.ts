@@ -11,9 +11,18 @@ export class MarkerService {
   constructor(private http : HttpClient) { }
 
   public getReliefRequestsByUser(username: string): Observable<ReliefRequest[]> {
-    console.log("hello world");
     const data = this.http.get<ReliefRequest[]>(`https://uga-hacks.vercel.app/api/${username}/requests/`);
-    data.forEach(value => console.log(value))
     return data;
+  }
+
+  public getReliefRequestsByBounds(upperLong : number, lowerLong : number, upperLat : number, lowerLat : number): Observable<ReliefRequest[]>{
+    const data = this.http.post<ReliefRequest[]>("https://uga-hacks.vercel.app/api/requests/range",
+      {
+        "upper_bound_lng": upperLong,
+        "lower_bound_lng": lowerLong,
+        "upper_bound_lat": upperLat,
+        "lower_bound_lat": lowerLat
+      })
+    return data
   }
 }

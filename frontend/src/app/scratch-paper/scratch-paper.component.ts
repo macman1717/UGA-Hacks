@@ -25,8 +25,11 @@ export class ScratchPaperComponent {
     this.loginService.checkLogin("Connor","password").pipe().forEach(value => console.log(value))
 
     console.log("Relief Request By Username:")
-    const dataRequestsByUser = this.markerService.getReliefRequestsByUser("Connor").subscribe();
-    console.log(dataRequestsByUser)
+    const dataRequestsByUser = this.markerService.getReliefRequestsByUser("Connor");
+    dataRequestsByUser.forEach(value => console.log(value))
+
+    const dataRequestByBounds = this.markerService.getReliefRequestsByBounds(13, 11, 54, 50);
+    dataRequestByBounds.forEach(value => console.log(value))
   }
 
   // protected readonly console = console;
