@@ -63,16 +63,18 @@ def request_rr(request, id):
         body = json.loads(request.body)
         rr = ReliefRequest.objects.get(id=id) # implement update logit
 
-def get_rr_by_long_lat(request, lat, lng, diff_x, diff_y):
-    upper_bound_lat = lat + diff_x
-    lower_bound_lat = lat - diff_x
-    upper_bound_lng = lng + diff_y
-    lower_bound_lng = lng - diff_y
+def get_rr_by_long_lat(request):
+    body = json.loads(request.body)
+
+    upper_bound_lat = body["upper_bound_lat"]
+    lower_bound_lat = body["lower_bound_lat"]
+    upper_bound_lng = body["upper_bound_lng"]
+    lower_bound_lng = body["lower_bound_lng"]
     requests = list(ReliefRequest.objects.filter(
         latitude__lt=upper_bound_lat,
         latitude__gt=lower_bound_lat,
-        longitude__lt=lower_bound_lng,
-        longitude__gt=upper_bound_lng,
+        longitude__lt=upper_bound_lng,
+        longitude__gt=lower_bound_lng,
     ).values())
     for rr in requests:
         format_relief_request(rr)
