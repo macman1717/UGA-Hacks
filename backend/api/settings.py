@@ -76,10 +76,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'api.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
+    '*',
 ]
 
+
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
 
 
 # Database
