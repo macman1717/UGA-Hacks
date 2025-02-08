@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import { ReliefRequest } from '../models/disaster-relief-request.model'
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,7 @@ export class LoginService {
 
   constructor(private http : HttpClient) { }
 
-  public getReliefRequestsByUser(username: string): Observable<Object> {
-    console.log("hello world")
-    return this.http.get(`https://uga-hacks.vercel.app/api/${username}/requests/`);
-  }
+  // public checkLogin(username : string, password : string){
+  //   return this.http.get()
+  // }
 }

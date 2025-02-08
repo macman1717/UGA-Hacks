@@ -9,7 +9,10 @@ from disaster_relief.models import ReliefRequest
 
 # Create your views here.
 
-def login(request, username, password):
+def login(request):
+    data = json.loads(request.body)
+    password = data['password']
+    username = data['username']
     try:
         user = User.objects.get(username=username)
         if user.check_password(password):

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LoginService} from "../services/login.service";
+import {MarkerService} from "../services/marker.service";
 
 @Component({
   selector: 'app-scratch-paper',
@@ -13,12 +14,16 @@ export class ScratchPaperComponent {
   data : any;
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private markerService: MarkerService
   ) {}
 
   ngOnInit(){
-    const data = this.loginService.getReliefRequestsByUser("Connor").subscribe();
-    console.log(data)
+
+
+    console.log("Relief Request By Username:")
+    const dataRequestsByUser = this.markerService.getReliefRequestsByUser("Connor").subscribe();
+    console.log(dataRequestsByUser)
   }
 
   // protected readonly console = console;
