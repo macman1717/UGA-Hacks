@@ -33,3 +33,6 @@ export interface ReliefRequest{
   like: number
 }
 
+export interface LoginResponse{
+  response : string
+}

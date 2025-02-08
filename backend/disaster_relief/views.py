@@ -11,16 +11,16 @@ from disaster_relief.models import ReliefRequest
 
 def login(request):
     data = json.loads(request.body)
-    password = data['password']
     username = data['username']
+    password = data['password']
     try:
         user = User.objects.get(username=username)
         if user.check_password(password):
             return JsonResponse({"response": "ok"}, status=200)
         user.save()
-        return JsonResponse({"error": "Incorrect password"}, status=400)
+        return JsonResponse({"response": "Incorrect password"}, status=400)
     except User.DoesNotExist:
-        return JsonResponse({"error": "Username not found"}, status=404)
+        return JsonResponse({"response": "Username not found"}, status=404)
 
 def get_relief_requests_by_user(request, username):
     requests = list(ReliefRequest.objects.filter(user__username=username).values())

@@ -19,7 +19,10 @@ export class ScratchPaperComponent {
   ) {}
 
   ngOnInit(){
-
+    console.log("Login in with valid creds:")
+    this.loginService.checkLogin("Connor","admin123").forEach(value => console.log(value))
+    console.log("Login in with invalid creds:")
+    this.loginService.checkLogin("Connor","password").pipe().forEach(value => console.log(value))
 
     console.log("Relief Request By Username:")
     const dataRequestsByUser = this.markerService.getReliefRequestsByUser("Connor").subscribe();
