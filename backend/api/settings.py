@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'disaster_relief.apps.DisasterReliefConfig',
     'api.apps.MongoAdminConfig',
     'api.apps.MongoAuthConfig',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -73,9 +75,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     '*',
+# ]
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
 
 
 # Database
