@@ -6,3 +6,4 @@ django-mongodb-backend==5.1.0b0
 dnspython==1.16.0
 pymongo==4.11
 sqlparse==0.5.3
+whitenoise==6.9.0
