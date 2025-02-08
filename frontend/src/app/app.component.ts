@@ -2,21 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MapComponent } from "./components/map/map.component";
 import { HeaderComponent } from "./components/header/header.component";
-<<<<<<< HEAD
 import { DetailsComponent } from "./components/details/details.component";
 import { MarkerInfo } from './models/MarkerInfo.model';
-=======
-import {ScratchPaperComponent} from "./scratch-paper/scratch-paper.component";
->>>>>>> aa4e30b65f2c23ed1dab49c165f27a84feadfc6f
+import { ScratchPaperComponent } from "./scratch-paper/scratch-paper.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-<<<<<<< HEAD
-  imports: [RouterOutlet, MapComponent, HeaderComponent, DetailsComponent],
-=======
-  imports: [RouterOutlet, MapComponent, HeaderComponent, ScratchPaperComponent],
->>>>>>> aa4e30b65f2c23ed1dab49c165f27a84feadfc6f
+  imports: [RouterOutlet, MapComponent, HeaderComponent, DetailsComponent, ScratchPaperComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -28,7 +21,6 @@ export class AppComponent {
   ngOnInit() {
     console.log('AppComponent loaded');
   }
-<<<<<<< HEAD
   
   showDetails = false;
   selectedLocation?: MarkerInfo = undefined;
@@ -44,7 +36,5 @@ export class AppComponent {
       this.detailsSheet.toggleSheet(true);
     }
   }
-=======
 
->>>>>>> aa4e30b65f2c23ed1dab49c165f27a84feadfc6f
 }
