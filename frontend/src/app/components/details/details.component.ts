@@ -1,16 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { MarkerInfo } from '../../models/MarkerInfo.model';
+import { ReliefRequest } from '../../models/disaster-relief-request.model';
+import { CommentComponent } from "../comment/comment.component";
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [],
+  imports: [CommentComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
 })
 export class DetailsComponent {
   @Input() isOpen: boolean = false;
-  @Input() locationData?: MarkerInfo;
+  @Input() reliefData?: ReliefRequest;
 
   startY = 0; 
   currentY = 0;
@@ -19,8 +20,6 @@ export class DetailsComponent {
   constructor() {}
 
   toggleSheet(open: boolean) {
-    console.log("hi");
-    console.log(this.locationData);
     this.isOpen = open;
     this.translateY = open ? 0 : 100;
   }

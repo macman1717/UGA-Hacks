@@ -2,9 +2,8 @@
 
 <main class="relative w-full h-screen">
   <div class="absolute inset-0">
-    <app-scratch-paper></app-scratch-paper>
     <app-map (locationSelected)="openDetails($event)"></app-map>
   </div>
 
-  <app-details [isOpen]="showDetails" [locationData]="selectedLocation"></app-details>
+  <app-details [isOpen]="showDetails" [reliefData]="selectedLocation"></app-details>
 </main>

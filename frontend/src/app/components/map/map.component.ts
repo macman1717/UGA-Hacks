@@ -2,8 +2,7 @@ import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-import { MarkerInfo } from '../../models/MarkerInfo.model';
-
+import { ReliefRequest } from '../../models/disaster-relief-request.model';
 
 @Component({
   selector: 'app-map',
@@ -33,22 +32,35 @@ export class MapComponent {
     popupAnchor: [1, -44]
   });
   
-  markerInfos: MarkerInfo[] = [
+  markerInfos: ReliefRequest[] = [
     {
-      lat: 51.505,
-      lng: -0.08,
+      latitude: 51.505,
+      longitude: -0.08,
       category: "Food",
-      name: "I want food",
+      title: "I want food",
       description: "GIVE ME FOOD!!!!",
+      id: '',
+      date: '2025-02-08T06:39:13.183Z',
+      link: '',
+      user_id: '',
+      watchlist: [],
+      comments: [
+        {
+          username: 'Sean Nolan',
+          content: 'Damn girl are you a multi-label binary classification model? Cus my binary cross entropy function is losing itself',
+          date: '2025-02-08T06:39:13.183Z',
+          id: '1'
+        },
+        {
+          username: 'Sean Nolan',
+          content: 'Damn girl are you a multi-label binary classification model? Cus my binary cross entropy function is losing itself',
+          date: '2025-02-08T06:39:13.183Z',
+          id: '2'
+        }
+      ],
+      like: 0
     },
-
-    {
-      lat: 51.50,
-      lng: -0.08,
-      category: "Medical",
-      name: "Donate To Cancer",
-      description: "I have cancer and I need money to give more people cancer.",
-    },
+    
   ]
 
   deselectMarker(marker?: L.Marker) {
@@ -58,12 +70,12 @@ export class MapComponent {
     this.locationSelected.emit();
   }
 
-  getMarkerInfoFromMarker(marker: L.Marker): MarkerInfo | null {
+  getMarkerInfoFromMarker(marker: L.Marker): ReliefRequest | null {
     const lat = marker.getLatLng().lat;
     const long = marker.getLatLng().lng;
 
     for (const info of this.markerInfos) {
-      if (info.lat == lat && info.lng == long) {
+      if (info.latitude == lat && info.longitude == long) {
         return info;
       }
     }
@@ -93,8 +105,11 @@ export class MapComponent {
       attribution: ''
     }).addTo(map);
 
+
+
+
     for (const info of this.markerInfos) {
-      const marker = L.marker([info.lat, info.lng], { icon: this.redMarkerIcon, riseOnHover: true, riseOffset: 300 })
+      const marker = L.marker([info.latitude, info.longitude], { icon: this.redMarkerIcon, riseOnHover: true, riseOffset: 300 })
       marker.addTo(map);
 
       marker.on('click', () => {
@@ -105,7 +120,7 @@ export class MapComponent {
         }
       });
 
-      marker.bindTooltip(info.name, { permanent: false, direction: "top", offset: [0, -40] });
+      marker.bindTooltip(info.title, { permanent: false, direction: "top", offset: [0, -40] });
       this.markers.push(marker);
     }
   }

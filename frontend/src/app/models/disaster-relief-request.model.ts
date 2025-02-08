@@ -12,7 +12,8 @@
 //     "comments": null,
 //     "likes": null
 //   },
-interface Comment{
+export interface Comment{
+  id: string,
   username: string,
   content: string,
   date: string
@@ -23,7 +24,7 @@ export interface ReliefRequest{
   longitude: number,
   latitude: number,
   description: string,
-  date: String,
+  date: string,
   category: string,
   link: string,
   title: string,
