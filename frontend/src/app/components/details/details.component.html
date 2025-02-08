@@ -1,0 +1,37 @@
+<div 
+  class="z-1000 fixed bottom-0 left-0 w-full bg-surface-alt dark:bg-surface-dark-alt shadow-lg rounded-t-2xl 
+         transition-transform duration-300 h-[50vh] md:h-full md:top-0 md:right-0 md:left-auto md:w-96 md:rounded-none
+         flex flex-col overflow-hidden max-h-[50vh] md:max-h-full"
+  [style.transform]="'translateY(' + translateY + '%)'"
+  (touchstart)="onTouchStart($event)"
+  (touchmove)="onTouchMove($event)"
+  (touchend)="onTouchEnd()"
+>
+
+  <div class="w-12 h-1.5 bg-on-surface/50 dark:bg-on-surface-dark/50 rounded-full mx-auto mt-2 md:hidden"></div>
+
+  <div class="flex flex-col md:flex-col-reverse md:justify-end overflow-y-auto flex-grow px-4 md:px-0">
+    
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-on-surface dark:text-on-surface-dark">{{ locationData?.name }}</h3>
+      <p class="text-sm text-on-surface/75 dark:text-on-surface-dark/75">{{ locationData?.description }}</p>
+    </div>
+
+    <div class="px-4 md:px-0">
+      <img 
+        class="w-full h-48 md:h-64 object-cover rounded-lg md:rounded-none"
+        src="food.jpg" 
+      />
+    </div>
+  </div>
+
+  <p class="dark:text-on-surface-dark">
+    LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP 
+    LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP 
+    LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP 
+    LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP 
+    LOREM IPSUM DIUPPP LOREM IPSUM DIUPPP
+  </p>
+
+
+</div>
