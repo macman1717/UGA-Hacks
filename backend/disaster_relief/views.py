@@ -112,7 +112,8 @@ def format_relief_request(relief_request):
                                   .objects
                                   .filter(username=User
                                           .objects
-                                          .get(pk=relief_request['user_id'])
+                                          .get(pk=relief_request['user_id']),
+                                          relief_request=relief_request['id']
                                           )
                                   .values()))
     for comment in relief_request['comments']:
