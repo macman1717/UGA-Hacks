@@ -60,7 +60,19 @@ def add_rr(request):
         user_id=body["user_id"],
     )
     rr.save()
-    return JsonResponse(body)
+
+    rr_dict = {
+        "id": str(rr.id),
+        "longitude": rr.longitude,
+        "latitude": rr.latitude,
+        "description": rr.description,
+        "category": rr.category,
+        "date": rr.date,  # Convert datetime to string
+        "link": rr.link,
+        "title": rr.title,
+        "user_id": str(rr.user_id),  # Get user ID directly
+    }
+    return JsonResponse(rr_dict, safe=False, status=200)
 
 def request_rr(request, id):
     if request.method == "GET":
