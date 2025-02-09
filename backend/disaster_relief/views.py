@@ -103,7 +103,23 @@ def post_comment(request):
     except Exception as e:
         return JsonResponse({"response": str(e)}, status=500)
 
-
+def create_user(request):
+    try:
+        body = json.loads(request.body)
+        username = body["username"]
+        password = body["password"]
+        email = body["email"]
+        first_name = body["first_name"]
+        last_name = body["last_name"]
+        User.objects.create_user(username=username,
+                                 password=password,
+                                 email=email,
+                                 first_name=first_name,
+                                 last_name=last_name,
+                                 date_joined=datetime.now())
+        return JsonResponse({"response": "ok"}, status=200)
+    except Exception as e:
+        return JsonResponse({"response": str(e)}, status=500)
 
 def format_relief_request(relief_request):
     relief_request["id"] = str(relief_request["id"])
