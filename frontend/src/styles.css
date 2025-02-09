@@ -38,3 +38,7 @@
     /* border radius */
     --radius-radius: var(--radius-sm);
 }
+
+.leaflet-container {
+    background: #000;
+}

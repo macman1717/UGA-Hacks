@@ -24,12 +24,51 @@
       <p class="text-sm text-on-surface/75 dark:text-on-surface-dark/75">{{ reliefData?.description }}</p>
     </div>
 
-    <h3 class="order-3 px-4 mt-4 text-lg font-medium text-on-surface dark:text-on-surface-dark">Comments</h3>
-    <div class="order-3 w-[92%] h-px bg-outline-dark mt-2 mx-auto rounded-full"></div>
+
+    <h3 class="order-3 px-4 mt-4 text-lg font-medium text-on-surface dark:text-on-surface-dark flex items-center justify-between">
+      Comments
+      <button (click)="toggleCommenting()" class="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:border-primary-dark dark:focus-visible:outline-primary-dark">
+        {{ commenting && 'x' || '+' }}
+      </button>
+    </h3>
+    <div class="order-4 w-[92%] h-px bg-outline-dark mt-2 mx-auto rounded-full"></div>
+
+    @if (commenting) {
+      <div class="order-5 p-4">
+      <div class="flex w-full max-w-md flex-col gap-1 text-on-surface dark:text-on-surface-dark">
+          @if (commentError) {
+          <label for="textareaError" class="flex w-fit items-center gap-1 pl-0.5 text-sm text-danger">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor" class="w-4 h-4">
+                <path d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z"/>
+            </svg>
+            Comment
+          </label>
+          }
+          <label for="textarea" class="flex w-fit items-center gap-1 pl-0.5 text-sm text-on-surface dark:text-on-surface-dark">Add a comment</label>
+          <textarea [(ngModel)]="comment" id="textareaError" [ngClass]="{'border-danger': comment.length > 250}" class="w-full rounded-radius border border-danger bg-surface-alt px-2.5 py-2 text-sm focus-visible:outline-1 focus-visible:outline-offset-1 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" name="comment" rows="3"></textarea>
+          @if (comment.length > 250) {
+            <small class="pl-0.5 text-danger">Error: 250 Max Characters ({{ comment.length }})</small>
+          }
+          <div class="flex justify-end gap-2 mt-2">
+            <button (click)="toggleCommenting()" class="cursor-pointer whitespace-nowrap rounded-radius border border-transparent text-secondary px-4 py-2 text-center text-xs font-medium tracking-wide transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary active:opacity-100 active:outline-offset-0 dark:border-transparent dark:text-secondary-dark dark:focus-visible:outline-secondary-dark" type="button" aria-label="cancel">
+              Cancel
+            </button>
+            <button (click)="submitComment()" [disabled]="comment.length > 250" class="cursor-pointer whitespace-nowrap rounded-full border border-primary bg-primary px-4 py-2 text-center text-xs font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:border-primary-dark dark:focus-visible:outline-primary-dark disabled:opacity-75 disabled:cursor-not-allowed" type="button" aria-label="send">
+              Comment
+            </button>
+          </div>
+        
+        </div>
+      </div>
+    }
+     
+    
+
+
 
     @if (reliefData) {
       @for (comment of reliefData.comments; track comment.id) {
-        <app-comment class="order-4" [comment]="comment"></app-comment>
+        <app-comment class="order-6" [comment]="comment"></app-comment>
       }
     }
   </div>

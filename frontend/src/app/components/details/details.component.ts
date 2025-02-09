@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { ReliefRequest } from '../../models/disaster-relief-request.model';
 import { CommentComponent } from "../comment/comment.component";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommentComponent],
+  imports: [CommonModule, FormsModule, CommentComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
 })
@@ -16,8 +18,19 @@ export class DetailsComponent {
   startY = 0; 
   currentY = 0;
   translateY = 100; 
+  commenting = false;
+  commentError = false;
+  comment = "";
 
   constructor() {}
+
+  toggleCommenting() {
+    this.commenting = !this.commenting;
+  }
+
+  submitComment() {
+
+  }
 
   toggleSheet(open: boolean) {
     this.isOpen = open;
