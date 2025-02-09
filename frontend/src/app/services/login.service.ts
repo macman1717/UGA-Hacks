@@ -7,12 +7,13 @@ import {LoginResponse, ReliefRequest} from '../models/disaster-relief-request.mo
   providedIn: 'root'
 })
 export class LoginService {
-  apiUrl = "https://uga-hacks.vercel.app/api/"
+  apiUrl = "https://uga-hacks.vercel.app/api"
   constructor(private http : HttpClient) { }
 
   public checkLogin(username : string, password : string){
+    console.log(username, password, this.apiUrl);
     return this.http.post<LoginResponse>(
-      `${this.apiUrl}/api/login/`,
+      `${this.apiUrl}/login/`,
       {"username": username, "password": password}
       )
   }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   @Output() close = new EventEmitter();
   showPassword = false;
+
+  constructor(private loginService: LoginService) {}
 
   username = '';
   password = '';
@@ -28,7 +31,16 @@ export class LoginComponent {
   }
 
   login() {
-    console.log(`Logging in with: ${this.username}, ${this.password}`);
+    if (this.registering) {
+      this.loginService.registerUser(this.username, this.password, this.email, this.fname, this.lname).subscribe(response => {
+        console.log(response);
+      });
+    } else {
+      this.loginService.checkLogin(this.username, this.password).subscribe(response => {
+        console.log(response);
+      });
+    }
+    //console.log(`Logging in with: ${this.username}, ${this.password}`);
     this.closePanel();
   }
 }
