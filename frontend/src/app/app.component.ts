@@ -21,6 +21,7 @@ export class AppComponent {
   title = 'frontend';
   isProfileOpen = false;
   isCreateRequestOpen = false;
+  searchbarText = '';
 
   ngOnInit() {
     console.log('AppComponent loaded');
@@ -47,6 +48,10 @@ export class AppComponent {
 
   closeProfile() {
     this.isProfileOpen = false;
+  }
+
+  onSearchChanged(text: string) {
+    this.searchbarText = text;
   }
 
   openCreateRequest() {
