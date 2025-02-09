@@ -79,6 +79,7 @@ def get_all_rrs(request):
     for rr in requests:
         format_relief_request(rr)
     return JsonResponse(requests, safe=False, status=200)
+
 def request_rr(request, id):
     if request.method == "GET":
         try:
@@ -170,9 +171,7 @@ def format_relief_request(relief_request):
     relief_request['user_id'] = str(relief_request['user_id'])
     relief_request['comments'] = list((Comment
                                   .objects
-                                  .filter(username=User
-                                          .objects
-                                          .get(pk=relief_request['user_id']),
+                                  .filter(
                                           relief_request=relief_request['id']
                                           )
                                   .values()))
