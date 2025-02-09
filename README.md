@@ -1,5 +1,6 @@
 # Members of the Team:
 Connor Griffin
+
 Sean Nolan
 
 ## Inspiration
@@ -30,6 +31,9 @@ Expanding user customizability by adding the different relief requests to a watc
 
 ## Technologies Used
 **Frontend** : Angular, tailwind, leaflet.js
+
 **Backend** : Django, django-mongodb-backend, pymongo
+
 **Database** : MongoDB Atlas
+
 **Apis/Other** : Google Maps api for geolocation, Vercel for hosting the backend
