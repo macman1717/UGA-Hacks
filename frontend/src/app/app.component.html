@@ -1,4 +1,7 @@
-<app-header></app-header>
+<app-header 
+(ProfileClicked)="openProfile()"
+(NewClicked)="openCreateRequest()"
+></app-header>
 
 <main class="relative w-full h-screen">
   <div class="absolute inset-0">
@@ -6,4 +9,12 @@
   </div>
 
   <app-details [isOpen]="showDetails" [reliefData]="selectedLocation"></app-details>
+
+  @if (isProfileOpen) {
+    <app-login (close)="closeProfile()"></app-login>
+  }
+
+  @if (isCreateRequestOpen) {
+    <app-create-request (close)="closeCreateRequest()"></app-create-request>
+  }
 </main>

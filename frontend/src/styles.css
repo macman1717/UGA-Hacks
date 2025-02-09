@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+.pac-container {
+    z-index: 9999 !important;
+}
+
 @theme {
     /* light theme */
     --color-surface: var(--color-white);

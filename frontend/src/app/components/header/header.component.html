@@ -5,8 +5,8 @@
       placeholder="Search..." 
       class="w-full p-2 bg-transparent outline-none text-on-surface dark:text-on-surface-dark"
     />
-    <button class="ml-2">
-      <span class="flex size-10 items-center justify-center overflow-hidden rounded-full border border-outline bg-surface-alt text-on-surface/50 dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark/50">
+    <button (click)="onProfileClicked()" class="ml-2 cursor-pointer">
+      <span class="flex size-10 items-center justify-center overflow-hidden rounded-full border border-outline bg-surface-alt text-on-surface/50 transition hover:dark:bg-neutral-800 dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark/50">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"  class="w-full h-full mt-3">
               <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"/>
           </svg>
@@ -16,10 +16,11 @@
 
   <div class="overflow-x-auto whitespace-nowrap px-2 hide-scrollbar">
     <div class="flex space-x-2">
-      <button class="px-4 py-2 bg-surface-alt dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Food</button>
-      <button class="px-4 py-2 bg-surface-alt dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Medical</button>
-      <button class="px-4 py-2 bg-surface-alt dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Shelter</button>
-      <button class="px-4 py-2 bg-surface-alt dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Disaster Relief</button>
+      <button (click)="onNewClicked()" class="px-4 py-2 bg-surface-alt cursor-pointer hover:dark:bg-neutral-800 dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">New</button>
+      <button class="px-4 py-2 bg-surface-alt cursor-pointer hover:dark:bg-neutral-800 dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Food</button>
+      <button class="px-4 py-2 bg-surface-alt cursor-pointer hover:dark:bg-neutral-800 dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Medical</button>
+      <button class="px-4 py-2 bg-surface-alt cursor-pointer hover:dark:bg-neutral-800 dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Shelter</button>
+      <button class="px-4 py-2 bg-surface-alt cursor-pointer hover:dark:bg-neutral-800 dark:bg-surface-dark-alt text-on-surface dark:text-on-surface-dark rounded-full">Disaster Relief</button>
     </div>
   </div>
 </header>

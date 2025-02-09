@@ -39,7 +39,7 @@ export class MapComponent {
       category: "Food",
       title: "I want food",
       description: "GIVE ME FOOD!!!!",
-      id: '',
+      id: 'test',
       date: '2025-02-08T06:39:13.183Z',
       link: '',
       user_id: '',
@@ -49,13 +49,15 @@ export class MapComponent {
           username: 'Sean Nolan',
           content: 'Damn girl are you a multi-label binary classification model? Cus my binary cross entropy function is losing itself',
           date: '2025-02-08T06:39:13.183Z',
-          id: '1'
+          id: '1',
+          relief_request: 'test'
         },
         {
           username: 'Sean Nolan',
           content: 'Damn girl are you a multi-label binary classification model? Cus my binary cross entropy function is losing itself',
           date: '2025-02-08T06:39:13.183Z',
-          id: '2'
+          id: '2',
+          relief_request: 'test'
         }
       ],
       like: 0

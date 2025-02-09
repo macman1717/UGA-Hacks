@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  @Output() ProfileClicked = new EventEmitter();
+  @Output() NewClicked = new EventEmitter();
   darkMode = false;
   
   constructor() {
@@ -15,10 +17,18 @@ export class HeaderComponent {
     this.updateTheme();
   }
 
+  onProfileClicked() {
+    this.ProfileClicked.emit();
+  }
+
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
     localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
     this.updateTheme();
+  }
+
+  onNewClicked() {
+    this.NewClicked.emit();
   }
 
   private updateTheme() {
