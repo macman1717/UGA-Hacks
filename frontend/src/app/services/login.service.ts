@@ -16,4 +16,14 @@ export class LoginService {
       {"username": username, "password": password}
       )
   }
+
+  public registerUser(username : string, password: string, email: string, firstName: string, lastName: string){
+    return this.http.post(`${this.apiUrl}/signup/`, {
+      "username":username,
+      "password":password,
+      "email":email,
+      "first_name":firstName,
+      "last_name":lastName
+    })
+  }
 }

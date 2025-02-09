@@ -16,6 +16,7 @@ def comment_endpoints(request, comment_oid):
             comment = Comment.objects.get(pk=comment_oid)
             comment.content = body.get('content')
             comment.save()
+
             return JsonResponse({'response': 'ok'}, status=200)
         except Exception as exception:
             return JsonResponse({'error': str(exception)}, status=400)
@@ -104,7 +105,7 @@ def get_rr_by_long_lat(request):
 def post_comment(request):
     try:
         body = json.loads(request.body)
-        username = User.objects.get(username=body["username"])
+        username = User.objects.get(username=body["username"]).username
         rr_id = body["relief_request"]
         content = body["content"]
         date = datetime.now()
@@ -116,7 +117,16 @@ def post_comment(request):
         )
 
         comment.save()
-        return JsonResponse({"response": "ok"}, status=200)
+
+        comment_dict = {
+            "id": str(comment.id),
+            "content": comment.content,
+            "username": comment.username,
+            "relief_request": str(comment.relief_request),
+            "date": comment.date,
+        }
+
+        return JsonResponse(comment_dict, status=200)
     except Exception as e:
         return JsonResponse({"response": str(e)}, status=500)
 
