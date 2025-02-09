@@ -9,8 +9,18 @@ from disaster_relief.models import ReliefRequest, Comment
 
 
 # Create your views here.
-def delete_comment(request, comment_oid):
-    if request.method == "DELETE":
+def comment_endpoints(request, comment_oid):
+    if request.method == 'PUT':
+        body = json.loads(request.body)
+        try:
+            comment = Comment.objects.get(pk=comment_oid)
+            comment.content = body.get('content')
+            comment.save()
+            return JsonResponse({'response': 'ok'}, status=200)
+        except Exception as exception:
+            return JsonResponse({'error': str(exception)}, status=400)
+
+    elif request.method == "DELETE":
         try:
             Comment.objects.filter(id=comment_oid).delete()
             return JsonResponse({'response': 'success'}, status=200)
@@ -95,7 +105,7 @@ def post_comment(request):
     try:
         body = json.loads(request.body)
         username = User.objects.get(username=body["username"])
-        rr_id = body["relief_request_id"]
+        rr_id = body["relief_request"]
         content = body["content"]
         date = datetime.now()
         comment = Comment(

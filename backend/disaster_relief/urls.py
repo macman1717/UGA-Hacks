@@ -10,5 +10,6 @@ urlpatterns = [
     path("request", views.add_rr, name='add_rr'),
     path('requests/range', views.get_rr_by_long_lat, name='range'),
     path('comment/', views.post_comment, name='comments'),
+    path('comment/<str:comment_oid>', views.comment_endpoints, name='comment'),
     path("signup/", views.create_user, name='create_user'),
 ]
