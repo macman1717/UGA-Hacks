@@ -12,4 +12,5 @@ urlpatterns = [
     path('comment/', views.post_comment, name='comments'),
     path('comment/<str:comment_oid>', views.comment_endpoints, name='comment'),
     path("signup/", views.create_user, name='create_user'),
+    path('requests/', views.get_all_rrs, name='all_rrs'),
 ]
