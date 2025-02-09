@@ -11,11 +11,12 @@ export class CommentService {
   constructor(private http : HttpClient) { }
 
   public updateComment(comment : Comment){
-    return this.http.put(`${this.apiUrl}comment/${comment.id}}`, comment)
+    return this.http.put(`${this.apiUrl}comment/${comment.id}`, comment)
   }
 
   public deleteComment(id : string){
-    return this.http.delete(`${this.apiUrl}comment/${id}}`)
+    console.log(id);
+    return this.http.delete(`${this.apiUrl}comment/${id}`)
   }
 
   public postComment(comment : Comment):Observable<Comment>{

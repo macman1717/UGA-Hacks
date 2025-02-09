@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {ReliefRequest} from "../models/disaster-relief-request.model";
 import {HttpClient} from "@angular/common/http";
 
@@ -7,6 +7,13 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root',
 })
 export class MarkerService {
+  private coordinatesSource = new BehaviorSubject<{ lat: number; lng: number } | null>(null);
+  coordinates$ = this.coordinatesSource.asObservable();
+
+  setCoordinates(coords: { lat: number; lng: number }) {
+    this.coordinatesSource.next(coords);
+  }
+
   apiUrl = "https://uga-hacks.vercel.app/api/"
   constructor(private http : HttpClient) {
 
@@ -14,6 +21,10 @@ export class MarkerService {
 
   public getReliefRequestsById(rr_oid: string): Observable<ReliefRequest[]> {
     return this.http.get<ReliefRequest[]>(`${this.apiUrl}requests/${rr_oid}`);
+  }
+
+  public getAllReliefRequests(): Observable<ReliefRequest[]> {
+    return this.http.get<ReliefRequest[]>(`${this.apiUrl}requests/`);
   }
 
   public getReliefRequestsByUser(username: string): Observable<ReliefRequest[]> {

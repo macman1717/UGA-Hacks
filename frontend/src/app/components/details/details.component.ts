@@ -1,8 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReliefRequest } from '../../models/disaster-relief-request.model';
 import { CommentComponent } from "../comment/comment.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CommentService } from '../../services/comment.service';
+import { Comment } from '../../models/disaster-relief-request.model';
 
 @Component({
   selector: 'app-details',
@@ -14,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class DetailsComponent {
   @Input() isOpen: boolean = false;
   @Input() reliefData?: ReliefRequest;
+  @Output() commentAdded = new EventEmitter();
 
   startY = 0; 
   currentY = 0;
@@ -22,14 +25,53 @@ export class DetailsComponent {
   commentError = false;
   comment = "";
 
-  constructor() {}
+  constructor(private commentService: CommentService) {}
 
   toggleCommenting() {
     this.commenting = !this.commenting;
   }
 
-  submitComment() {
+  deleteComment(toDelete: Comment) {
+    if (!this.reliefData) return alert('no relief data') ;
 
+    console.log(toDelete.id);
+    this.commentService.deleteComment(toDelete.id).subscribe({
+      next: () => {
+        this.reliefData!.comments = this.reliefData?.comments?.filter(comment => comment.id !== toDelete.id) || [];
+        this.commenting = false;
+        this.comment = '';
+      },
+      error: (err) => {
+        console.error("Failed to delete comment", err);
+      }
+    });
+}
+
+
+  submitComment() {
+    if (!this.reliefData) return;
+
+    const username = localStorage.getItem('username');
+    if (!username) return alert("You must be logged in to comment.");
+
+    const newComment: Comment = {
+      id: '-1',
+      relief_request: this.reliefData.id,
+      username: username,
+      content: this.comment,
+      date: '',
+    }
+
+    this.commentService.postComment(newComment).subscribe({
+      next: (response) => {
+        this.reliefData?.comments.push(response);
+        this.commenting = false;
+        this.comment = '';
+      },
+      error: (err) => {
+        console.error("Failed to post comment", err);
+      }
+    });
   }
 
   toggleSheet(open: boolean) {

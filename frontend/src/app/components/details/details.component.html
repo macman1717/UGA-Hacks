@@ -15,13 +15,17 @@
     <div class="px-4 md:px-0 order-2 md:order-1">
       <img 
         class="w-full h-48 md:h-64 object-cover rounded-lg md:rounded-none"
-        src="food.jpg" 
+        [src]="reliefData?.category === 'food' ? 'food.jpg' : 
+        reliefData?.category === 'shelter' ? 'shelter.jpg' : 
+        'medical.jpg'"
       />
     </div>
 
     <div class="p-4 order-1 md:order-2">
       <h3 class="text-lg font-semibold text-on-surface dark:text-on-surface-dark">{{ reliefData?.title }}</h3>
       <p class="text-sm text-on-surface/75 dark:text-on-surface-dark/75">{{ reliefData?.description }}</p>
+      <a [href]="reliefData?.link" class="font-medium text-primary underline-offset-2 hover:underline focus:underline focus:outline-hidden dark:text-primary-dark">Give Support</a>
+
     </div>
 
 
@@ -67,8 +71,8 @@
 
 
     @if (reliefData) {
-      @for (comment of reliefData.comments; track comment.id) {
-        <app-comment class="order-6" [comment]="comment"></app-comment>
+      @for (comment of reliefData.comments.reverse(); track comment.id) {
+        <app-comment (deleteCommentRequest)="deleteComment($event)" class="order-6" [comment]="comment"></app-comment>
       }
     }
   </div>

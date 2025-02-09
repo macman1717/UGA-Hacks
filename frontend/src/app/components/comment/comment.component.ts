@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Comment } from '../../models/disaster-relief-request.model';
 
 @Component({
@@ -10,6 +10,11 @@ import { Comment } from '../../models/disaster-relief-request.model';
 })
 export class CommentComponent {
   @Input() comment!: Comment;
+  @Output() deleteCommentRequest = new EventEmitter();
+
+  deleteComment() {
+    this.deleteCommentRequest.emit(this.comment)
+  }
 
   // converts date string into "time ago" format (a week ago, 6 months ago)
   formatDate(dateString: string): string {

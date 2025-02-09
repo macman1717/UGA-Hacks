@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ReliefRequest } from '../../models/disaster-relief-request.model';
 import { TitleCasePipe } from '@angular/common';
 import { GoogleMapsLoaderService } from '../../services/google-maps-loader.service';
+import { MarkerService } from '../../services/marker.service';
 
 declare const google: any;
 
@@ -30,7 +31,9 @@ export class CreateRequestComponent {
     like: 0
   }
 
-  constructor(private googleMapsLoader: GoogleMapsLoaderService) {}
+  successfulSubmit = false;
+
+  constructor(private googleMapsLoader: GoogleMapsLoaderService, private markerService: MarkerService) {}
 
   async ngAfterViewInit() {
     try {
@@ -42,7 +45,23 @@ export class CreateRequestComponent {
   }
 
   submitRequest() {
-    console.log(this.request);
+    const user_id = localStorage.getItem('user-id');
+    if (!user_id) {
+      return alert("You must be signed in to post a request.");
+    }
+
+    this.request.user_id = user_id;
+    
+    this.markerService.postReliefRequest(this.request).subscribe({
+      next: (response) => {
+        this.successfulSubmit = true;
+        this.markerService.setCoordinates({lat: this.request.latitude, lng: this.request.longitude});
+      },
+      error: (err) => {
+        console.error("Request Post Failed:", err);
+        alert("Post failed!");
+      }
+    });
   }
 
   initializeAutocomplete() {
@@ -63,6 +82,7 @@ export class CreateRequestComponent {
   address = '';
 
   closePanel() {
+    this.successfulSubmit = false;
     this.close.emit();
   }
 

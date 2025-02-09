@@ -2,7 +2,7 @@
 
 export interface Comment{
   id: string,
-  relief_request : string,
+  relief_request: string,
   username: string,
   content: string,
   date: string
@@ -24,5 +24,5 @@ export interface ReliefRequest{
 }
 
 export interface LoginResponse{
-  response : string
+  user_id : string
 }

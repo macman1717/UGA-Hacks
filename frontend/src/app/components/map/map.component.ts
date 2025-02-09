@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import { ReliefRequest } from '../../models/disaster-relief-request.model';
+import { MarkerService } from '../../services/marker.service';
 
 @Component({
   selector: 'app-map',
@@ -16,6 +17,9 @@ export class MapComponent {
   markers: L.Marker[] = [];
   selectedMarker?: L.Marker;
   private map!: L.Map;
+
+  constructor(private markerService: MarkerService) {}
+  
 
   private locateUser(): void {
     this.map.locate({ setView: true, maxZoom: 16 });
@@ -35,6 +39,7 @@ export class MapComponent {
       alert('Unable to retrieve your location.');
     });
   }
+  
 
   redMarkerIcon = L.icon({
     iconUrl: 'locator.png',
@@ -115,6 +120,51 @@ export class MapComponent {
     this.locationSelected.emit(this.getMarkerInfoFromMarker(this.selectedMarker));
   }
 
+  ngOnInit() {
+    this.markerService.coordinates$.subscribe(coords => {
+      if (coords) {
+        this.map.panTo([coords.lat, coords.lng]);
+        this.getAllMarkers();
+      }
+    });
+
+    this.getAllMarkers();
+  }
+
+  getAllMarkers() {
+    this.markerService.getAllReliefRequests().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.markerInfos = response;
+        this.generateMarkers()
+      },
+      error: (err) => {
+        console.error("Failed to get relief requests", err);
+      }
+    });
+  }
+
+  generateMarkers() {
+    for (const marker of this.markers) {
+      marker.remove();
+    }
+
+    for (const info of this.markerInfos) {
+      const marker = L.marker([info.latitude, info.longitude], { icon: this.redMarkerIcon, riseOnHover: true, riseOffset: 300 })
+      marker.addTo(this.map);
+
+      marker.on('click', () => {
+        if (marker.options.icon === this.redMarkerIcon) {
+          this.selectMarker(marker);
+        } else {
+          this.deselectMarker(marker);
+        }
+      });
+
+      marker.bindTooltip(info.title, { permanent: false, direction: "top", offset: [0, -40] });
+      this.markers.push(marker);
+    }
+  }
 
   ngAfterViewInit(): void {
     const map = L.map('map', {zoomControl: false}).setView([51.505, -0.09], 13);
@@ -128,25 +178,6 @@ export class MapComponent {
       attribution: ''
     }).addTo(map);
 
-
-
-
-    for (const info of this.markerInfos) {
-      const marker = L.marker([info.latitude, info.longitude], { icon: this.redMarkerIcon, riseOnHover: true, riseOffset: 300 })
-      marker.addTo(map);
-
-      marker.on('click', () => {
-        if (marker.options.icon === this.redMarkerIcon) {
-          this.selectMarker(marker);
-        } else {
-          this.deselectMarker(marker);
-        }
-      });
-
-      marker.bindTooltip(info.title, { permanent: false, direction: "top", offset: [0, -40] });
-      this.markers.push(marker);
-
-      this.locateUser();
-    }
+    this.locateUser();
   }
 }

@@ -4,17 +4,26 @@
 
 <div class="flex justify-center items-center">
     <div
-        class="z-1200 fixed top-1/2 -translate-y-1/2 w-full max-w-9/10 sm:max-w-md mx-auto max-h-[90vh] p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-lg overflow-y-auto">
-        <button (click)="closePanel()"
-            class="cursor-pointer absolute top-4 right-4 text-on-surface dark:text-on-surface-dark"
-            aria-label="close modal">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor"
-                fill="none" stroke-width="1.4" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
+        class="z-1200 fixed top-1/2 -translate-y-1/2 w-full max-w-9/10 sm:max-w-md mx-auto max-h-[90vh] p-5 bg-surface dark:bg-surface-dark rounded-lg shadow-lg overflow-y-auto">
+        
+        <div class="flex items-center justify-between flex-row-reverse -mt-1">
+            <button (click)="closePanel()"
+                class="cursor-pointer text-on-surface dark:text-on-surface-dark"
+                aria-label="close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor"
+                    fill="none" stroke-width="1.4" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
 
-        <h2 class="text-lg font-bold dark:text-on-surface-dark">Create a Relief Request</h2>
+            <h2 class="text-lg font-bold dark:text-on-surface-dark">{{ successfulSubmit && "Successfully posted relief request!" ||  "Create a Relief Request" }}</h2>
+        </div>
+
+        
+
+        @if (!successfulSubmit) {
+
+        
 
         
         <form #form="ngForm" (ngSubmit)="submitRequest()" class="flex flex-col gap-3">
@@ -82,20 +91,8 @@
                 Submit
             </button>
         </form>
-       
-        <div class="flex justify-end gap-2 mt-4">
-            <!-- <button (click)="toggleRegister()"
-                class="cursor-pointer whitespace-nowrap rounded-radius border border-transparent text-secondary px-4 py-2 text-center text-xs font-medium tracking-wide transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary active:opacity-100 active:outline-offset-0 dark:border-transparent dark:text-secondary-dark dark:focus-visible:outline-secondary-dark"
-                type="button" aria-label="cancel">
-                {{ registering && 'Sign In' || 'Register' }}
-            </button>
-            <button (click)="login()" 
-                [disabled]="(registering && (username.length == 0 || password.length == 0 || email.length == 0 || fname.length == 0 || lname.length == 0)) || (username.length == 0 || password.length == 0)"
-                class="cursor-pointer whitespace-nowrap rounded-full border border-primary bg-primary px-6 py-2 text-center text-xs font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:border-primary-dark dark:focus-visible:outline-primary-dark disabled:opacity-75 disabled:cursor-not-allowed"
-                type="button" aria-label="send">
-                {{ registering && 'Register' || 'Sign In' }}
-            </button> -->
-        </div>
+
+        }
     </div>
 
 </div>
