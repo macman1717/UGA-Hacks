@@ -1,11 +1,12 @@
 <app-header 
 (ProfileClicked)="openProfile()"
 (NewClicked)="openCreateRequest()"
+(SearchChanged)="onSearchChanged($event)"
 ></app-header>
 
 <main class="relative w-full h-screen">
   <div class="absolute inset-0">
-    <app-map (locationSelected)="openDetails($event)"></app-map>
+    <app-map [searchbarText]=searchbarText (locationSelected)="openDetails($event)"></app-map>
   </div>
 
   <app-details [isOpen]="showDetails" [reliefData]="selectedLocation"></app-details>

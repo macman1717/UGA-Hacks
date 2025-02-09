@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import { ReliefRequest } from '../../models/disaster-relief-request.model';
+import { GoogleMapsLoaderService } from '../../services/google-maps-loader.service';
 
 @Component({
   selector: 'app-map',
@@ -12,9 +13,11 @@ import { ReliefRequest } from '../../models/disaster-relief-request.model';
   styleUrl: './map.component.css'
 })
 export class MapComponent {
+  @Input() searchbarText = '';
   @Output() locationSelected = new EventEmitter();
   markers: L.Marker[] = [];
   selectedMarker?: L.Marker;
+  private map!: L.Map;
 
   redMarkerIcon = L.icon({
     iconUrl: 'locator.png',
@@ -51,7 +54,6 @@ export class MapComponent {
           relief_request: "Hi",
           date: '2025-02-08T06:39:13.183Z',
           id: '1',
-          relief_request: 'test'
         },
         {
           username: 'Sean Nolan',
@@ -59,7 +61,6 @@ export class MapComponent {
           relief_request: "Hi",
           date: '2025-02-08T06:39:13.183Z',
           id: '2',
-          relief_request: 'test'
         }
       ],
       like: 0
@@ -87,6 +88,26 @@ export class MapComponent {
     return null;
   }
 
+  private locateUser(): void {
+    this.map.locate({ setView: true, maxZoom: 16 });
+
+    this.map.on('locationfound', (e: L.LocationEvent) => {
+      const { lat, lng } = e.latlng; // Correct way to get latitude & longitude
+
+      L.marker([lat, lng]).addTo(this.map)
+        .bindPopup('You are here')
+        .openPopup();
+
+      console.log(`Latitude: ${lat}, Longitude: ${lng}`);
+    });
+
+    this.map.on('locationerror', (e) => {
+      console.error('Location access denied or unavailable', e);
+      alert('Unable to retrieve your location.');
+    });
+  }
+
+
   selectMarker(marker: L.Marker) {
     if (this.selectedMarker) {
       this.deselectMarker(this.selectedMarker);
@@ -98,8 +119,9 @@ export class MapComponent {
   }
 
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     const map = L.map('map', {zoomControl: false}).setView([51.505, -0.09], 13);
+    this.map = map;
 
     map.on('click', () => {
       this.deselectMarker(this.selectedMarker);
@@ -127,5 +149,7 @@ export class MapComponent {
       marker.bindTooltip(info.title, { permanent: false, direction: "top", offset: [0, -40] });
       this.markers.push(marker);
     }
+
+    this.locateUser();
   }
 }
