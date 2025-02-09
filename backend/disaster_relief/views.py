@@ -35,9 +35,9 @@ def login(request):
     try:
         user = User.objects.get(username=username)
         if user.check_password(password):
-            return JsonResponse({"response": "ok"}, status=200)
+            return JsonResponse({"user_id": str(user.id)}, status=200)
         user.save()
-        return JsonResponse({"response": "Incorrect password"}, status=400)
+        return JsonResponse({"user_id":user.id}, status=400)
     except User.DoesNotExist:
         return JsonResponse({"response": "Username not found"}, status=404)
 
