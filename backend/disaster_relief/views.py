@@ -9,6 +9,13 @@ from disaster_relief.models import ReliefRequest, Comment
 
 
 # Create your views here.
+def delete_comment(request, comment_oid):
+    if request.method == "DELETE":
+        try:
+            Comment.objects.filter(id=comment_oid).delete()
+            return JsonResponse({'response': 'success'}, status=200)
+        except Comment.DoesNotExist:
+            return JsonResponse({'response': 'fail'}, status=404)
 
 def login(request):
     data = json.loads(request.body)
