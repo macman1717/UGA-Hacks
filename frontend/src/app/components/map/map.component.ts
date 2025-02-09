@@ -17,21 +17,21 @@ export class MapComponent {
   selectedMarker?: L.Marker;
 
   redMarkerIcon = L.icon({
-    iconUrl: 'locator.png', 
-    shadowUrl: 'marker-shadow.png', 
+    iconUrl: 'locator.png',
+    shadowUrl: 'marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34]
   });
 
   selectedIcon = L.icon({
-    iconUrl: 'locatorSelected.png', 
+    iconUrl: 'locatorSelected.png',
     shadowUrl: 'marker-shadow.png',
     iconSize: [35, 51],
     iconAnchor: [17, 51],
     popupAnchor: [1, -44]
   });
-  
+
   markerInfos: ReliefRequest[] = [
     {
       latitude: 51.505,
@@ -48,6 +48,7 @@ export class MapComponent {
         {
           username: 'Sean Nolan',
           content: 'Damn girl are you a multi-label binary classification model? Cus my binary cross entropy function is losing itself',
+          relief_request: "Hi",
           date: '2025-02-08T06:39:13.183Z',
           id: '1',
           relief_request: 'test'
@@ -55,6 +56,7 @@ export class MapComponent {
         {
           username: 'Sean Nolan',
           content: 'Damn girl are you a multi-label binary classification model? Cus my binary cross entropy function is losing itself',
+          relief_request: "Hi",
           date: '2025-02-08T06:39:13.183Z',
           id: '2',
           relief_request: 'test'
@@ -62,7 +64,7 @@ export class MapComponent {
       ],
       like: 0
     },
-    
+
   ]
 
   deselectMarker(marker?: L.Marker) {

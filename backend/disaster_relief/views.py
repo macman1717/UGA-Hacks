@@ -9,8 +9,19 @@ from disaster_relief.models import ReliefRequest, Comment
 
 
 # Create your views here.
-def delete_comment(request, comment_oid):
-    if request.method == "DELETE":
+def comment_endpoints(request, comment_oid):
+    if request.method == 'PUT':
+        body = json.loads(request.body)
+        try:
+            comment = Comment.objects.get(pk=comment_oid)
+            comment.content = body.get('content')
+            comment.save()
+
+            return JsonResponse({'response': 'ok'}, status=200)
+        except Exception as exception:
+            return JsonResponse({'error': str(exception)}, status=400)
+
+    elif request.method == "DELETE":
         try:
             Comment.objects.filter(id=comment_oid).delete()
             return JsonResponse({'response': 'success'}, status=200)
@@ -49,7 +60,19 @@ def add_rr(request):
         user_id=body["user_id"],
     )
     rr.save()
-    return JsonResponse(body)
+
+    rr_dict = {
+        "id": str(rr.id),
+        "longitude": rr.longitude,
+        "latitude": rr.latitude,
+        "description": rr.description,
+        "category": rr.category,
+        "date": rr.date,  # Convert datetime to string
+        "link": rr.link,
+        "title": rr.title,
+        "user_id": str(rr.user_id),  # Get user ID directly
+    }
+    return JsonResponse(rr_dict, safe=False, status=200)
 
 def request_rr(request, id):
     if request.method == "GET":
@@ -94,8 +117,8 @@ def get_rr_by_long_lat(request):
 def post_comment(request):
     try:
         body = json.loads(request.body)
-        username = User.objects.get(username=body["username"])
-        rr_id = body["relief_request_id"]
+        username = User.objects.get(username=body["username"]).username
+        rr_id = body["relief_request"]
         content = body["content"]
         date = datetime.now()
         comment = Comment(
@@ -106,7 +129,16 @@ def post_comment(request):
         )
 
         comment.save()
-        return JsonResponse({"response": "ok"}, status=200)
+
+        comment_dict = {
+            "id": str(comment.id),
+            "content": comment.content,
+            "username": comment.username,
+            "relief_request": str(comment.relief_request),
+            "date": comment.date,
+        }
+
+        return JsonResponse(comment_dict, status=200)
     except Exception as e:
         return JsonResponse({"response": str(e)}, status=500)
 
