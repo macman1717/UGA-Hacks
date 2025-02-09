@@ -74,6 +74,11 @@ def add_rr(request):
     }
     return JsonResponse(rr_dict, safe=False, status=200)
 
+def get_all_rrs(request):
+    requests = list(ReliefRequest.objects.all().values())
+    for rr in requests:
+        format_relief_request(rr)
+    return JsonResponse(requests, safe=False, status=200)
 def request_rr(request, id):
     if request.method == "GET":
         try:
