@@ -23,7 +23,7 @@ def comment_endpoints(request, comment_oid):
 
     elif request.method == "DELETE":
         try:
-            Comment.objects.filter(id=comment_oid).delete()
+            Comment.objects.filter(pk=comment_oid).delete()
             return JsonResponse({'response': 'success'}, status=200)
         except Comment.DoesNotExist:
             return JsonResponse({'response': 'fail'}, status=404)
