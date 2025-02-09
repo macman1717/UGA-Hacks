@@ -4,7 +4,7 @@ Connor Griffin
 Sean Nolan
 
 ## Inspiration
-The recent natural disasters in California and North Carolina
+Recent natural disasters in California and North Carolina have left a lot of people without homes and other necessities, so we considered this application which allows people to find and help those in their community who are in need due to disasters.
 
 ## What it does
 Provides an interactive map where users can post request for relief at a location of their choosing. These requests are displayed to others on the map where they can view details about the request. 
@@ -30,7 +30,7 @@ The power of this app comes from enabling users to directly support members of t
 Expanding user customizability by adding the different relief requests to a watchlist and giving suggestions for different requests based on proximity and popularity. 
 
 ## Technologies Used
-**Frontend** : Angular, tailwind, leaflet.js
+**Frontend** : Angular, TailwindCSS, leaflet.js
 
 **Backend** : Django, django-mongodb-backend, pymongo
 
