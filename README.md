@@ -1,4 +1,4 @@
-Members of the Team:
+# Members of the Team:
 Connor Griffin
 Sean Nolan
 
@@ -28,7 +28,7 @@ The power of this app comes from enabling users to directly support members of t
 ## What's next for the Disaster Relief Community Platform
 Expanding user customizability by adding the different relief requests to a watchlist and giving suggestions for different requests based on proximity and popularity. 
 
-##Technologies Used
+## Technologies Used
 **Frontend** : Angular, tailwind, leaflet.js
 **Backend** : Django, django-mongodb-backend, pymongo
 **Database** : MongoDB Atlas
