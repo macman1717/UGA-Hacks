@@ -1,7 +1,11 @@
-# Members of the Team:
-Connor Griffin
+# Disaster Relief Community Platform
+🎉 Winner of "Best Use of MongoDB Atlas" at UGAHacks 2025!
 
-Sean Nolan
+![1741580889275](https://github.com/user-attachments/assets/4293620c-bacf-4f16-b1fa-51a5172a255f)
+
+## Members of the Team:
+- Connor Griffin
+- Sean Nolan
 
 ## Inspiration
 Recent natural disasters in California and North Carolina have left a lot of people without homes and other necessities, so we considered this application which allows people to find and help those in their community who are in need due to disasters.
@@ -37,3 +41,5 @@ Expanding user customizability by adding the different relief requests to a watc
 **Database** : MongoDB Atlas
 
 **Apis/Other** : Google Maps api for geolocation, Vercel for hosting the backend
+
+
